@@ -33,6 +33,11 @@ using Sentez.Data.MetaData;
 using Sentez.Localization;
 using Sentez.EgeHayatPublicModule.Models;
 using Sentez.Common.Utilities;
+using Sentez.MetaPosModule.ParameterClasses;
+using System.Collections.Generic;
+using Sentez.PosModule.PresentationModels;
+using LiveCore.Desktop.UI.Controls;
+using System.Windows.Controls;
 
 namespace Sentez.EgeHayatPublicModule
 {
@@ -58,7 +63,7 @@ namespace Sentez.EgeHayatPublicModule
             }
         }
 
-        public override short moduleID { get { return (short)Modules.ExternalModule20; } }
+        public override short moduleID { get { return (short)Modules.ExternalModule21; } }
 
         public EgeHayatPublicModule(IContainerExtension container)
         {
@@ -84,7 +89,22 @@ namespace Sentez.EgeHayatPublicModule
             RegisterList();
             EgeHayatPublicModuleSecurity.RegisterSecurityDefinitions();
 
-            MenuManager.Instance.RegisterMenu("EgeHayatPublicModule", "EgeHayatPublicModuleMenu", moduleID, true);
+            //MenuManager.Instance.RegisterMenu("EgeHayatPublicModule", "EgeHayatPublicModuleMenu", moduleID, true);
+            ParameterBase.AddInitExternalParameter("InventoryParameters", InitExternalParameter);
+
+            PMBase.AddCustomInit("InventoryParams", InventoryParams_Init);
+            PMBase.AddCustomViewLoaded("InventoryParams", InventoryParams_ViewLoaded);
+            PMBase.AddCustomDispose("InventoryParams", InventoryParams_Dispose);
+
+            PMBase.AddCustomInit("InventoryPM", InventoryPm_Init);
+            PMBase.AddCustomViewLoaded("InventoryPM", InventoryPm_ViewLoaded);
+            PMBase.AddCustomDispose("InventoryPM", InventoryPm_Dispose);
+        }
+
+        private void InitExternalParameter(Dictionary<int, object> externalParamerters)
+        {
+            externalParamerters.Add((int)InventoryParameterType.INV_CodeTemplates, "");
+            //externalParamerters.Add((int)TseParameterType.TSE_FiskalyIntegrationTypeForTableReceipt, (byte)0);
         }
 
         public override void OnInitialize(IContainerProvider containerProvider)
@@ -109,7 +129,7 @@ namespace Sentez.EgeHayatPublicModule
 
         private void RegisterServices()
         {
-            ParameterFactory.StaticFactory.RegisterParameterClass(typeof(EgeHayatPublicModuleParameters), (int)Modules.ExternalModule20);
+            ParameterFactory.StaticFactory.RegisterParameterClass(typeof(EgeHayatPublicModuleParameters), (int)Modules.ExternalModule21);
             _container.Register<ISystemService, CreatMetaDataFieldsService>("CreatMetaDataFieldsService");
             //BusinessObjectBase.AddCustomExtension("OrderReceiptBO", typeof(OrderReceiptControlExtension));
 
@@ -125,7 +145,7 @@ namespace Sentez.EgeHayatPublicModule
 
         private void RegisterRes()
         {
-            ResMng.AddRes("EgeHayatPublicModuleMenu", "EgeHayatPublicModule;component/ModuleMenu.xml", ResSource.Resource, ResourceType.MenuXml, Modules.ExternalModule20, 0, 0);
+            ResMng.AddRes("EgeHayatPublicModuleMenu", "EgeHayatPublicModule;component/ModuleMenu.xml", ResSource.Resource, ResourceType.MenuXml, Modules.ExternalModule21, 0, 0);
         }
 
         private void RegisterList()
@@ -136,10 +156,10 @@ namespace Sentez.EgeHayatPublicModule
 
         private void RegisterViews()
         {
-            ResMng.AddRes("EgeHayatPublicModuleParametersView", "EgeHayatPublicModule;component/Views/EgeHayatPublicModuleParameters.xaml", ResSource.Resource, ResourceType.View, Modules.ExternalModule20, 0, 0);
-            ResMng.AddRes("VehicleAssignmentView", "EgeHayatPublicModule;component/Views/VehicleAssignment.xaml", ResSource.Resource, ResourceType.View, Modules.ExternalModule20, 0, 0);
-            ResMng.AddRes("VehicleInspectionView", "EgeHayatPublicModule;component/Views/VehicleInspection.xaml", ResSource.Resource, ResourceType.View, Modules.ExternalModule20, 0, 0);
-            ResMng.AddRes("VehicleMaintenanceView", "EgeHayatPublicModule;component/Views/VehicleMaintenance.xaml", ResSource.Resource, ResourceType.View, Modules.ExternalModule20, 0, 0);
+            ResMng.AddRes("EgeHayatPublicModuleParametersView", "EgeHayatPublicModule;component/Views/EgeHayatPublicModuleParameters.xaml", ResSource.Resource, ResourceType.View, Modules.ExternalModule21, 0, 0);
+            ResMng.AddRes("VehicleAssignmentView", "EgeHayatPublicModule;component/Views/VehicleAssignment.xaml", ResSource.Resource, ResourceType.View, Modules.ExternalModule21, 0, 0);
+            ResMng.AddRes("VehicleInspectionView", "EgeHayatPublicModule;component/Views/VehicleInspection.xaml", ResSource.Resource, ResourceType.View, Modules.ExternalModule21, 0, 0);
+            ResMng.AddRes("VehicleMaintenanceView", "EgeHayatPublicModule;component/Views/VehicleMaintenance.xaml", ResSource.Resource, ResourceType.View, Modules.ExternalModule21, 0, 0);
         }
 
         private void RegisterPM()
@@ -154,8 +174,8 @@ namespace Sentez.EgeHayatPublicModule
 
         public void RegisterCoreDocuments()
         {
-            Schema.ReadXml(Assembly.GetAssembly(typeof(EgeHayatPublicModule)).GetManifestResourceStream("EgeHayatPublicModule.EgeHayatPublicModuleDataSchema.xml"));
-            DbCreator.AddRegistration(3014, EgeHayatPublicModuleDbUpdateScript);
+            //Schema.ReadXml(Assembly.GetAssembly(typeof(EgeHayatPublicModule)).GetManifestResourceStream("EgeHayatPublicModule.EgeHayatPublicModuleDataSchema.xml"));
+            //DbCreator.AddRegistration(3014, EgeHayatPublicModuleDbUpdateScript);
         }
 
         DbScripts EgeHayatPublicModuleDbUpdateScript(DbCreator instance)
@@ -169,23 +189,24 @@ namespace Sentez.EgeHayatPublicModule
         private void _sysMng_AfterDesktopLogin(object sender, EventArgs e)
         {
             liveSession = _sysMng.getSession();
-            EgeHayatPublicModuleParameters = liveSession.ParamService.GetParameterClass<EgeHayatPublicModuleParameters>();
 
-            LookupList.Instance.AddLookupList("MaintenanceTypeList", "TypeName", typeof(string), new object[] { SLanguage.GetString("Periyodik Bakım")
-                                                                                                , SLanguage.GetString("Yağ ve Filtre Değişimi")
-                                                                                                , SLanguage.GetString("Fren Sistemi Kontrolü")
-                                                                                                , SLanguage.GetString("Lastik Değişimi veya Rotasyonu")
-                                                                                                , SLanguage.GetString("Akü Kontrolü")
-                                                                                                , SLanguage.GetString("Klima ve Havalandırma Bakımı")
-                                                                                                , SLanguage.GetString("Şanzıman Yağı Kontrolü")
-                                                                                                , SLanguage.GetString("Motor Performans Testi")
-                                                                                                , SLanguage.GetString("Far ve Aydınlatma Kontrolü")
-                                                                                                , SLanguage.GetString("Egzoz Emisyon Ölçümü")
-                                                                                                , SLanguage.GetString("TÜVTÜRK Muayene")
-                                                                                                , SLanguage.GetString("Diğer")
-                                                                                              }
-                                                                                              , "Type",
-                                                                                              typeof(byte), new object[] { (byte)0, (byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8, (byte)9, (byte)10, (byte)99 });
+            if (!Schema.Tables["Erp_Inventory"].Fields.Contains("UD_SubGroup"))
+                CreatMetaDataFieldsService.CreatMetaDataFields("Erp_Inventory", "UD_SubGroup", SLanguage.GetString("Alt Grup"), (byte)UdtType.UdtCode, (byte)FieldUsage.Code, (byte)EditorType.ListSelector, (byte)ValueInputMethod.FreeTypeAndAddToList, 0);
+            if (!Schema.Tables["Erp_Inventory"].Fields.Contains("UD_Property"))
+                CreatMetaDataFieldsService.CreatMetaDataFields("Erp_Inventory", "UD_Property", SLanguage.GetString("Özellik"), (byte)UdtType.UdtCode, (byte)FieldUsage.Code, (byte)EditorType.ListSelector, (byte)ValueInputMethod.FreeTypeAndAddToList, 0);
+            if (!Schema.Tables["Erp_Inventory"].Fields.Contains("UD_Weight"))
+                CreatMetaDataFieldsService.CreatMetaDataFields("Erp_Inventory", "UD_Weight", SLanguage.GetString("Ağırlık"), (byte)UdtType.UdtCode, (byte)FieldUsage.Code, (byte)EditorType.ListSelector, (byte)ValueInputMethod.FreeTypeAndAddToList, 0);
+
+            if (!Schema.Tables["Erp_Service"].Fields.Contains("UD_SubGroup"))
+                CreatMetaDataFieldsService.CreatMetaDataFields("Erp_Service", "UD_SubGroup", SLanguage.GetString("Alt Grup"), (byte)UdtType.UdtCode, (byte)FieldUsage.Code, (byte)EditorType.ListSelector, (byte)ValueInputMethod.FreeTypeAndAddToList, 0);
+            if (!Schema.Tables["Erp_Service"].Fields.Contains("UD_Property"))
+                CreatMetaDataFieldsService.CreatMetaDataFields("Erp_Service", "UD_Property", SLanguage.GetString("Özellik"), (byte)UdtType.UdtCode, (byte)FieldUsage.Code, (byte)EditorType.ListSelector, (byte)ValueInputMethod.FreeTypeAndAddToList, 0);
+            if (!Schema.Tables["Erp_Service"].Fields.Contains("UD_Weight"))
+                CreatMetaDataFieldsService.CreatMetaDataFields("Erp_Service", "UD_Weight", SLanguage.GetString("Ağırlık"), (byte)UdtType.UdtCode, (byte)FieldUsage.Code, (byte)EditorType.ListSelector, (byte)ValueInputMethod.FreeTypeAndAddToList, 0);
+            if (!Schema.Tables["Erp_Service"].Fields.Contains("UD_InventoryId"))
+                CreatMetaDataFieldsService.CreatMetaDataFields("Erp_Service", "UD_InventoryId", SLanguage.GetString("Malzeme ID"), (byte)UdtType.UdtInt64, (byte)FieldUsage.None, (byte)EditorType.ReadOnlyTextEditor, (byte)ValueInputMethod.FreeTypeAndAddToList, 0);
+
+            EgeHayatPublicModuleParameters = liveSession.ParamService.GetParameterClass<EgeHayatPublicModuleParameters>();
         }
 
         private void _sysMng_BeforeLogout(object sender, EventArgs e)

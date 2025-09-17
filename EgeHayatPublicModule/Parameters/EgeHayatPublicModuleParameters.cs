@@ -25,7 +25,7 @@ namespace Sentez.EgeHayatPublicModule.Parameters
             : base()
         {
             ParameterType = ParameterType.User;
-            ModuleId = (short)Modules.ExternalModule20;
+            ModuleId = (short)Modules.ExternalModule21;
         }
 
 

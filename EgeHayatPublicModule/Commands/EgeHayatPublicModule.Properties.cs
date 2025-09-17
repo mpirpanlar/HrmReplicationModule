@@ -21,7 +21,7 @@ namespace Sentez.EgeHayatPublicModule
         public LookupList Lists { get; set; }
         public LookupList Lists_QuotationReceiptPM { get; set; }
         public LookupList Lists_OrderReceiptPM { get; set; }
-        LiveDocumentPanel ldpCurrentAccountChecklist, ldpInventoryMark, ldpVariantItemMark;
+        LiveDocumentPanel ldpCurrentAccountChecklist, ldpInventoryGeneral, ldpVariantItemMark;
         LiveTabItem ldpCategoryUnitItemSizeSetDetails, ldpCategoryAttributeSetDetails, ltiCurrentAccountChecklist;
         InventoryPM inventoryPm;
         CardPM categoryPm, inventoryAttributeSetPm;
@@ -29,7 +29,9 @@ namespace Sentez.EgeHayatPublicModule
         LiveGridControl gridVariantItems, gridVariantItemMarks;
         QuotationReceiptPM quotationReceiptPm;
         OrderReceiptPM orderReceiptPm;
+        CardPM cardPm;
         CRMCustomerTransactionPM crmCustomerTransactionPm;
+        LiveCheckedComboBoxEdit liveCheckedComboBoxEditInventoryTemplate;
         bool _suppressEvent = false;
     }
 }

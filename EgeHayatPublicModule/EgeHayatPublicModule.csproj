@@ -111,6 +111,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="BoExtensions\" />
+	  <Folder Include="Global\" />
 	  <Folder Include="WorkList\" />
 	</ItemGroup>
 </Project>
