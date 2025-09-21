@@ -140,3 +140,4 @@ _NCrunch*
 /Debug
 /Release
 /obj
+*.vsidx
