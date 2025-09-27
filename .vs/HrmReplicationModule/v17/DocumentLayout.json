@@ -1,7 +1,44 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{17C58A3D-3B61-43A9-B72F-7838B0939190}|HrmReplicationModule\\HrmReplicationModule.csproj|c:\\sourcecontrol\\sentez-erp\\dev-v2.0.0.1\\externalmodules\\hrmreplicationmodule\\hrmreplicationmodule\\hrmreplicationmodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{17C58A3D-3B61-43A9-B72F-7838B0939190}|HrmReplicationModule\\HrmReplicationModule.csproj|solutionrelative:hrmreplicationmodule\\hrmreplicationmodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{17C58A3D-3B61-43A9-B72F-7838B0939190}|HrmReplicationModule\\HrmReplicationModule.csproj|c:\\sourcecontrol\\sentez-erp\\dev-v2.0.0.1\\externalmodules\\hrmreplicationmodule\\hrmreplicationmodule\\commands\\hrmreplicationmodule.inventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{17C58A3D-3B61-43A9-B72F-7838B0939190}|HrmReplicationModule\\HrmReplicationModule.csproj|solutionrelative:hrmreplicationmodule\\commands\\hrmreplicationmodule.inventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{17C58A3D-3B61-43A9-B72F-7838B0939190}|HrmReplicationModule\\HrmReplicationModule.csproj|c:\\sourcecontrol\\sentez-erp\\dev-v2.0.0.1\\externalmodules\\hrmreplicationmodule\\hrmreplicationmodule\\commands\\hrmreplicationmodule.inventoryparams.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{17C58A3D-3B61-43A9-B72F-7838B0939190}|HrmReplicationModule\\HrmReplicationModule.csproj|solutionrelative:hrmreplicationmodule\\commands\\hrmreplicationmodule.inventoryparams.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{17C58A3D-3B61-43A9-B72F-7838B0939190}|HrmReplicationModule\\HrmReplicationModule.csproj|c:\\sourcecontrol\\sentez-erp\\dev-v2.0.0.1\\externalmodules\\hrmreplicationmodule\\hrmreplicationmodule\\commands\\hrmreplicationmodule.properties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{17C58A3D-3B61-43A9-B72F-7838B0939190}|HrmReplicationModule\\HrmReplicationModule.csproj|solutionrelative:hrmreplicationmodule\\commands\\hrmreplicationmodule.properties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{17C58A3D-3B61-43A9-B72F-7838B0939190}|HrmReplicationModule\\HrmReplicationModule.csproj|c:\\sourcecontrol\\sentez-erp\\dev-v2.0.0.1\\externalmodules\\hrmreplicationmodule\\hrmreplicationmodule\\global\\globals.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{17C58A3D-3B61-43A9-B72F-7838B0939190}|HrmReplicationModule\\HrmReplicationModule.csproj|solutionrelative:hrmreplicationmodule\\global\\globals.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{17C58A3D-3B61-43A9-B72F-7838B0939190}|HrmReplicationModule\\HrmReplicationModule.csproj|c:\\sourcecontrol\\sentez-erp\\dev-v2.0.0.1\\externalmodules\\hrmreplicationmodule\\hrmreplicationmodule\\parameters\\hrmreplicationmoduleparameters.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{17C58A3D-3B61-43A9-B72F-7838B0939190}|HrmReplicationModule\\HrmReplicationModule.csproj|solutionrelative:hrmreplicationmodule\\parameters\\hrmreplicationmoduleparameters.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{17C58A3D-3B61-43A9-B72F-7838B0939190}|HrmReplicationModule\\HrmReplicationModule.csproj|c:\\sourcecontrol\\sentez-erp\\dev-v2.0.0.1\\externalmodules\\hrmreplicationmodule\\hrmreplicationmodule\\hrmreplicationmoduledbupdatescripts.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{17C58A3D-3B61-43A9-B72F-7838B0939190}|HrmReplicationModule\\HrmReplicationModule.csproj|solutionrelative:hrmreplicationmodule\\hrmreplicationmoduledbupdatescripts.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{17C58A3D-3B61-43A9-B72F-7838B0939190}|HrmReplicationModule\\HrmReplicationModule.csproj|c:\\sourcecontrol\\sentez-erp\\dev-v2.0.0.1\\externalmodules\\hrmreplicationmodule\\hrmreplicationmodule\\hrmreplicationmoduledataschema.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{17C58A3D-3B61-43A9-B72F-7838B0939190}|HrmReplicationModule\\HrmReplicationModule.csproj|solutionrelative:hrmreplicationmodule\\hrmreplicationmoduledataschema.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,8 +46,47 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": ".gitignore",
+              "DocumentMoniker": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\.gitignore",
+              "RelativeDocumentMoniker": ".gitignore",
+              "ToolTip": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\.gitignore",
+              "RelativeToolTip": ".gitignore",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-09-27T11:05:18.912Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HrmReplicationModule.cs",
+              "DocumentMoniker": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\HrmReplicationModule\\HrmReplicationModule.cs",
+              "RelativeDocumentMoniker": "HrmReplicationModule\\HrmReplicationModule.cs",
+              "ToolTip": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\HrmReplicationModule\\HrmReplicationModule.cs",
+              "RelativeToolTip": "HrmReplicationModule\\HrmReplicationModule.cs",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAAwG8AAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-27T11:02:03.928Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "HrmReplicationModule.Inventory.cs",
+              "DocumentMoniker": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\HrmReplicationModule\\Commands\\HrmReplicationModule.Inventory.cs",
+              "RelativeDocumentMoniker": "HrmReplicationModule\\Commands\\HrmReplicationModule.Inventory.cs",
+              "ToolTip": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\HrmReplicationModule\\Commands\\HrmReplicationModule.Inventory.cs",
+              "RelativeToolTip": "HrmReplicationModule\\Commands\\HrmReplicationModule.Inventory.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-27T11:01:50.114Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
@@ -56,8 +132,82 @@
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "HrmReplicationModule.InventoryParams.cs",
+              "DocumentMoniker": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\HrmReplicationModule\\Commands\\HrmReplicationModule.InventoryParams.cs",
+              "RelativeDocumentMoniker": "HrmReplicationModule\\Commands\\HrmReplicationModule.InventoryParams.cs",
+              "ToolTip": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\HrmReplicationModule\\Commands\\HrmReplicationModule.InventoryParams.cs",
+              "RelativeToolTip": "HrmReplicationModule\\Commands\\HrmReplicationModule.InventoryParams.cs",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-27T11:01:38.455Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "HrmReplicationModule.Properties.cs",
+              "DocumentMoniker": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\HrmReplicationModule\\Commands\\HrmReplicationModule.Properties.cs",
+              "RelativeDocumentMoniker": "HrmReplicationModule\\Commands\\HrmReplicationModule.Properties.cs",
+              "ToolTip": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\HrmReplicationModule\\Commands\\HrmReplicationModule.Properties.cs",
+              "RelativeToolTip": "HrmReplicationModule\\Commands\\HrmReplicationModule.Properties.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-27T11:01:36.984Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Globals.cs",
+              "DocumentMoniker": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\HrmReplicationModule\\Global\\Globals.cs",
+              "RelativeDocumentMoniker": "HrmReplicationModule\\Global\\Globals.cs",
+              "ToolTip": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\HrmReplicationModule\\Global\\Globals.cs",
+              "RelativeToolTip": "HrmReplicationModule\\Global\\Globals.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-27T11:01:27.228Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "HrmReplicationModuleParameters.cs",
+              "DocumentMoniker": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\HrmReplicationModule\\Parameters\\HrmReplicationModuleParameters.cs",
+              "RelativeDocumentMoniker": "HrmReplicationModule\\Parameters\\HrmReplicationModuleParameters.cs",
+              "ToolTip": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\HrmReplicationModule\\Parameters\\HrmReplicationModuleParameters.cs",
+              "RelativeToolTip": "HrmReplicationModule\\Parameters\\HrmReplicationModuleParameters.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-27T11:00:51.463Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "HrmReplicationModuleDbUpdateScripts.xml",
+              "DocumentMoniker": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\HrmReplicationModule\\HrmReplicationModuleDbUpdateScripts.xml",
+              "RelativeDocumentMoniker": "HrmReplicationModule\\HrmReplicationModuleDbUpdateScripts.xml",
+              "ToolTip": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\HrmReplicationModule\\HrmReplicationModuleDbUpdateScripts.xml",
+              "RelativeToolTip": "HrmReplicationModule\\HrmReplicationModuleDbUpdateScripts.xml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2025-09-27T10:07:24.468Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "HrmReplicationModuleDataSchema.xml",
+              "DocumentMoniker": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\HrmReplicationModule\\HrmReplicationModuleDataSchema.xml",
+              "RelativeDocumentMoniker": "HrmReplicationModule\\HrmReplicationModuleDataSchema.xml",
+              "ToolTip": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\HrmReplicationModule\\HrmReplicationModuleDataSchema.xml",
+              "RelativeToolTip": "HrmReplicationModule\\HrmReplicationModuleDataSchema.xml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2025-09-27T10:07:22.227Z",
+              "EditorCaption": ""
             }
           ]
         }
