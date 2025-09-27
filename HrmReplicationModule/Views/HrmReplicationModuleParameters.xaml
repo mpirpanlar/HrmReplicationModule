@@ -1,0 +1,71 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:lange="clr-namespace:Sentez.Common.Localization;assembly=LiveCore.Desktop"
+    xmlns:sye="clr-namespace:Sentez.Common.Extension;assembly=LiveCore.Desktop"
+    xmlns:live="clr-namespace:LiveCore.Desktop.UI.Controls;assembly=LiveCore.Desktop"
+    xmlns:UtilCore="clr-namespace:Sentez.Common.Utilities;assembly=LiveCore"
+    x:Name="HrmReplicationModuleParameters"
+    Tag="{lange:TranslateExtension Parametreler}"
+    >
+    <Grid Margin="5">
+        <live:LiveDockPanel LastChildFill="True">
+            <live:LiveDockPanel DockPanel.Dock="Bottom" Visibility="{Binding Path=WorkplaceBasedParameterVisibility}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <live:LiveLabel Grid.Row="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Padding="2" Height="23" VerticalContentAlignment="Center" Width="70" Content="{lange:TranslateExtension İşyeri}"/>
+                    <live:LiveComboBoxEdit Grid.Column="1" Margin="2,1,1,0" HorizontalAlignment="Left" VerticalContentAlignment="Center" Padding="2" Height="23" Width="250" ItemsSource="{Binding WorkPlaceDataView}" DisplayMember="WorkplaceCodeName" ValueMember="RecId"  EditValue="{sye:SBinding Path=ParameterWorkplaceId}"/>
+                </Grid>
+            </live:LiveDockPanel>
+            <live:LiveDockPanel DockPanel.Dock="Bottom" Visibility="{Binding Path=CompanyBasedParameterVisibility}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" MinHeight="30" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <live:LiveLabel Grid.Row="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Padding="2" Height="23" VerticalContentAlignment="Center" Width="70" Content="{lange:TranslateExtension Şirket}"/>
+                    <live:LiveComboBoxEdit Grid.Column="1" Margin="2,1,1,0" HorizontalAlignment="Left" VerticalContentAlignment="Center" Padding="2" Height="23" Width="250" ItemsSource="{sye:SBinding Path=Lists[ParameterCompanyList]}" DisplayMember="CompanyCodeName" ValueMember="RecId"  EditValue="{sye:SBinding Path=ParameterCompanyId}"/>
+                </Grid>
+            </live:LiveDockPanel>
+            <live:LiveTabControl Grid.Column="0" Grid.Row="0" Padding="0" Name="TabGenel">
+                <live:LiveTabItem Header="{lange:TranslateExtension Genel}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <live:LiveLabel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Content="{lange:TranslateExtension Boomerang GET Url}"/>
+                        <live:LiveTextEdit Grid.Row="1" Grid.Column="1" Margin="5,0,0,0" HorizontalAlignment="Left" Width="400" Text="{sye:SBinding Path=Parameters.HotelsboomerangGetUrl}"/>
+
+                        <live:LiveLabel Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Content="{lange:TranslateExtension Bearer Kodu}"/>
+                        <live:LiveTextEdit Grid.Row="2" Grid.Column="1" Margin="5,0,0,0" HorizontalAlignment="Left" Width="400" Text="{sye:SBinding Path=Parameters.BearerCode}"/>
+
+                        <live:LiveLabel Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Content="{lange:TranslateExtension Hizmet Kodu}"/>
+                        <live:LiveTextEdit Grid.Row="3" Grid.Column="1" Margin="5,0,0,0" HorizontalAlignment="Left" Width="400" Text="{sye:SBinding Path=Parameters.BookingServiceCode}"/>
+
+                        <live:LiveLabel Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Content="{lange:TranslateExtension Kontrol Aralığı (Sn.)}"/>
+                        <live:LiveTextEdit Grid.Row="4" Grid.Column="1" Margin="5,0,0,0" HorizontalAlignment="Left" Width="50" Text="{sye:SBinding Path=Parameters.BookingCheckPeriod}"/>
+                    </Grid>
+                </live:LiveTabItem>
+            </live:LiveTabControl>
+        </live:LiveDockPanel>
+    </Grid>
+</UserControl>
