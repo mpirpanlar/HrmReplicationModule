@@ -19,11 +19,7 @@
 		<SignAssembly>true</SignAssembly>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Page Remove="Views\CurrentAccountAttachmentAddress.xaml" />
 	  <Page Remove="Views\HrmReplicationModuleParameters.xaml" />
-	  <Page Remove="Views\VehicleAssignment.xaml" />
-	  <Page Remove="Views\VehicleInspection.xaml" />
-	  <Page Remove="Views\VehicleMaintenance.xaml" />
 	</ItemGroup>
 	<ItemGroup>
 		
@@ -88,16 +84,6 @@
 	<ItemGroup>
 		<Resource Include="ModuleMenu.xml" />
 		<Resource Include="Views\HrmReplicationModuleParameters.xaml" />
-		<Resource Include="Views\CurrentAccountAttachmentAddress.xaml">
-		  <Generator>MSBuild:Compile</Generator>
-		</Resource>
-		<Resource Include="Views\VehicleMaintenance.xaml">
-		  <Generator>MSBuild:Compile</Generator>
-		</Resource>
-		<Resource Include="Views\VehicleInspection.xaml">
-		  <Generator>MSBuild:Compile</Generator>
-		</Resource>
-		<Resource Include="Views\VehicleAssignment.xaml" />
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="HrmReplicationModuleDataSchema.xml" />
@@ -119,6 +105,7 @@
 	<ItemGroup>
 	  <Folder Include="BoExtensions\" />
 	  <Folder Include="Global\" />
+	  <Folder Include="Models\" />
 	  <Folder Include="WorkList\" />
 	</ItemGroup>
 </Project>

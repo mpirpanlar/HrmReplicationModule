@@ -109,21 +109,21 @@ namespace Sentez.HrmReplicationModule
             HrmReplicationModuleSecurity.RegisterSecurityDefinitions();
 
             //MenuManager.Instance.RegisterMenu("HrmReplicationModule", "HrmReplicationModuleMenu", moduleID, true);
-            ParameterBase.AddInitExternalParameter("InventoryParameters", InitExternalParameter);
+            //ParameterBase.AddInitExternalParameter("InventoryParameters", InitExternalParameter);
 
-            PMBase.AddCustomInit("InventoryParams", InventoryParams_Init);
-            PMBase.AddCustomViewLoaded("InventoryParams", InventoryParams_ViewLoaded);
-            PMBase.AddCustomDispose("InventoryParams", InventoryParams_Dispose);
+            //PMBase.AddCustomInit("InventoryParams", InventoryParams_Init);
+            //PMBase.AddCustomViewLoaded("InventoryParams", InventoryParams_ViewLoaded);
+            //PMBase.AddCustomDispose("InventoryParams", InventoryParams_Dispose);
 
-            PMBase.AddCustomInit("InventoryPM", InventoryPm_Init);
-            PMBase.AddCustomViewLoaded("InventoryPM", InventoryPm_ViewLoaded);
-            PMBase.AddCustomDispose("InventoryPM", InventoryPm_Dispose);
+            //PMBase.AddCustomInit("InventoryPM", InventoryPm_Init);
+            //PMBase.AddCustomViewLoaded("InventoryPM", InventoryPm_ViewLoaded);
+            //PMBase.AddCustomDispose("InventoryPM", InventoryPm_Dispose);
 
-            BusinessObjectBase.AddCustomInit("CurrentAccountBO", CurrentAccountBo_Init);
+            //BusinessObjectBase.AddCustomInit("CurrentAccountBO", CurrentAccountBo_Init);
 
-            PMBase.AddCustomInit("CurrentAccountPM", CurrentAccountPm_Init);
-            PMBase.AddCustomViewLoaded("CurrentAccountPM", CurrentAccountPm_ViewLoaded);
-            PMBase.AddCustomDispose("CurrentAccountPM", CurrentAccountPm_Dispose);
+            //PMBase.AddCustomInit("CurrentAccountPM", CurrentAccountPm_Init);
+            //PMBase.AddCustomViewLoaded("CurrentAccountPM", CurrentAccountPm_ViewLoaded);
+            //PMBase.AddCustomDispose("CurrentAccountPM", CurrentAccountPm_Dispose);
 
             var ort = new ReceiptTypeDefinition
             {
