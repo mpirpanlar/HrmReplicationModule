@@ -36,86 +36,7 @@ namespace Sentez.EgeHayatHrmReplicationModule
             if (inventoryPm.ActiveView._view != null)
             {
                 //(inventoryPm.ActiveView._view as UserControl).PreviewKeyDown += EgeHayatHrmReplicationModule_CardPm_PreviewKeyDown;
-                inventoryPm.ActiveBO.AfterSucceededPost += ActiveBO_AfterSucceededPost;
-            }
-        }
-
-        private void ActiveBO_AfterSucceededPost(object sender, EventArgs e)
-        {
-            if (liveCheckedComboBoxEditInventoryTemplate?.SelectedItems.Count > 0)
-            {
-                IBusinessObject serviceBo = inventoryPm.container.Resolve<IBusinessObject>("ServiceBO");
-                try
-                {
-                    if (serviceBo != null)
-                    {
-                        int unitId = 0;
-                        using (DataTable table = UtilityFunctions.GetDataTableList(inventoryPm.ActiveBO.Provider, inventoryPm.ActiveBO.Connection, inventoryPm.ActiveBO.Transaction, "Meta_UnitSet", $"SELECT * FROM Meta_UnitSet AS MUS WITH (NOLOCK) WHERE MUS.SetCode='{SLanguage.GetString("Adet")}' AND ISNULL(MUS.InUse,0)=1"))
-                        {
-                            if (table.Rows.Count > 0)
-                            {
-                                int.TryParse(table.Rows[0]["RecId"].ToString(), out unitId);
-                            }
-                        }
-
-                        foreach (DataRowView dataRowView in liveCheckedComboBoxEditInventoryTemplate.SelectedItems)
-                        {
-                            string serviceCode = dataRowView.Row["TemplateDetail"].ToString();
-                            string invCode = inventoryPm.ActiveBO.CurrentRow["InventoryCode"].ToString();
-                            invCode = invCode.Length > 3 ? invCode.Substring(3) : string.Empty;
-                            serviceCode += invCode;
-                            if (serviceBo.Get(serviceCode) <= 0)
-                            {
-                                serviceBo.Init(new BoParam(2));
-                                serviceBo.NewRecord();
-                                serviceBo.CurrentRow["ServiceCode"] = serviceCode;
-                                serviceBo.CurrentRow["ServiceName"] = $"{inventoryPm.ActiveBO.CurrentRow["InventoryName"]} {dataRowView["TemplateExplanation"]}";
-                                if (unitId > 0)
-                                    serviceBo.CurrentRow["UnitId"] = unitId;
-                                if (serviceBo.CurrentRow.Row.Table.Columns.Contains("UD_InventoryId"))
-                                    serviceBo.CurrentRow["UD_InventoryId"] = inventoryPm.ActiveBO.CurrentRow["RecId"];
-                                serviceBo.CurrentRow["GroupCode"] = inventoryPm.ActiveBO.CurrentRow["GroupCode"];
-                                foreach (MetaField metaField in Schema.Tables[inventoryPm.ActiveBO.BaseTable].GetExtensionFields())
-                                {
-                                    MetaField[] metaFields = Schema.Tables[serviceBo.BaseTable].Fields.Where(x => x.Name == metaField.Name).ToArray();
-                                    if (metaFields.Length > 0)
-                                    {
-                                        if (metaFields[0].DataType == metaField.DataType)
-                                        {
-                                            serviceBo.CurrentRow[metaField.Name] = inventoryPm.ActiveBO.CurrentRow[metaField.Name];
-                                        }
-                                    }
-                                }
-                                PostResult postResult = serviceBo.PostData();
-                            }
-                            else
-                            {
-                                serviceBo.CurrentRow["ServiceName"] = $"{inventoryPm.ActiveBO.CurrentRow["InventoryName"]} {dataRowView["TemplateExplanation"]}";
-                                if (unitId > 0)
-                                    serviceBo.CurrentRow["UnitId"] = unitId;
-                                if (serviceBo.CurrentRow.Row.Table.Columns.Contains("UD_InventoryId"))
-                                    serviceBo.CurrentRow["UD_InventoryId"] = inventoryPm.ActiveBO.CurrentRow["RecId"];
-                                serviceBo.CurrentRow["GroupCode"] = inventoryPm.ActiveBO.CurrentRow["GroupCode"];
-                                foreach (MetaField metaField in Schema.Tables[inventoryPm.ActiveBO.BaseTable].GetExtensionFields())
-                                {
-                                    MetaField[] metaFields = Schema.Tables[serviceBo.BaseTable].Fields.Where(x => x.Name == metaField.Name).ToArray();
-                                    if (metaFields.Length > 0)
-                                    {
-                                        if (metaFields[0].DataType == metaField.DataType)
-                                        {
-                                            serviceBo.CurrentRow[metaField.Name] = inventoryPm.ActiveBO.CurrentRow[metaField.Name];
-                                        }
-                                    }
-                                }
-                                PostResult postResult = serviceBo.PostData();
-                            }
-                        }
-                    }
-                }
-                finally
-                {
-                    serviceBo?.Dispose();
-                }
+                //inventoryPm.ActiveBO.AfterSucceededPost += ActiveBO_AfterSucceededPost;
             }
         }
 
@@ -233,7 +154,7 @@ namespace Sentez.EgeHayatHrmReplicationModule
         {
             if (inventoryPm != null)
             {
-                inventoryPm.ActiveBO.AfterSucceededPost -= ActiveBO_AfterSucceededPost;
+                //inventoryPm.ActiveBO.AfterSucceededPost -= ActiveBO_AfterSucceededPost;
                 LiveLayoutGroup ldpInventoryGeneral = inventoryPm.FCtrl("LlgMain") as LiveLayoutGroup;
                 if (ldpInventoryGeneral != null)
                 {

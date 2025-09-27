@@ -59,6 +59,9 @@
 			<SpecificVersion>False</SpecificVersion>
 			<HintPath>..\..\..\LiveOutputs\Debug\net6.0-windows\LiveCore.Desktop.dll</HintPath>
 		</Reference>
+		<Reference Include="LiveCore.Replication">
+		  <HintPath>..\..\..\LiveOutputs\Debug\net6.0-windows\LiveCore.Replication.dll</HintPath>
+		</Reference>
 		<Reference Include="MetaPosModule">
 		  <HintPath>..\..\..\LiveOutputs\Debug\net6.0-windows\MetaPosModule.dll</HintPath>
 		</Reference>
