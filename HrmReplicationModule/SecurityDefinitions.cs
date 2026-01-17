@@ -8,7 +8,7 @@ namespace Sentez.HrmReplicationModule
     {
         public static void RegisterSecurityDefinitions()
         {
-            short _moduleId = (short)Modules.ExternalModule15;
+            short _moduleId = (short)Modules.ExternalModule22;
 
             SecurityDefinition mainSecurity = new SecurityDefinition(SLanguage.GetString("Maliyet Kontrol Modülü"), _moduleId, _moduleId, 0, 0, Privileges.Select);
             mainSecurity.AddChild(new SecurityDefinition(SLanguage.GetString("Satış-Sevkiyat Karşılaştırması"), _moduleId, _moduleId, (short)HrmReplicationModuleSecurityItems.VariantItemMark, (short)HrmReplicationModuleSecuritySubItems.None, Privileges.Select));

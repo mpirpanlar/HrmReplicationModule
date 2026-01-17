@@ -102,10 +102,4 @@
 		<PackageReference Include="System.ServiceModel.Federation" Version="4.8.1" />
 		<PackageReference Include="Microsoft.Windows.Compatibility" Version="9.0.4" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="BoExtensions\" />
-	  <Folder Include="Global\" />
-	  <Folder Include="Models\" />
-	  <Folder Include="WorkList\" />
-	</ItemGroup>
 </Project>

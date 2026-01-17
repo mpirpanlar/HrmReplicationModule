@@ -1,12 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{17C58A3D-3B61-43A9-B72F-7838B0939190}|HrmReplicationModule\\HrmReplicationModule.csproj|c:\\sourcecontrol\\sentez-erp\\dev-v2.0.0.1\\externalmodules\\hrmreplicationmodule\\hrmreplicationmodule\\hrmreplicationmodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{17C58A3D-3B61-43A9-B72F-7838B0939190}|HrmReplicationModule\\HrmReplicationModule.csproj|solutionrelative:hrmreplicationmodule\\hrmreplicationmodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -14,8 +9,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": -1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
@@ -61,17 +60,8 @@
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "HrmReplicationModule.cs",
-              "DocumentMoniker": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\HrmReplicationModule\\HrmReplicationModule.cs",
-              "RelativeDocumentMoniker": "HrmReplicationModule\\HrmReplicationModule.cs",
-              "ToolTip": "C:\\SourceControl\\SENTEZ-ERP\\dev-v2.0.0.1\\ExternalModules\\HrmReplicationModule\\HrmReplicationModule\\HrmReplicationModule.cs",
-              "RelativeToolTip": "HrmReplicationModule\\HrmReplicationModule.cs",
-              "ViewState": "AgIAAMQBAAAAAAAAAAAjwFABAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-21T11:59:03.51Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:14:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
             }
           ]
         }

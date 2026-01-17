@@ -25,7 +25,7 @@ using Sentez.Data.BusinessObjects;
 using Sentez.Data.MetaData;
 using Sentez.Data.MetaData.DatabaseControl;
 using Sentez.Data.Tools;
-using Sentez.HrmReplicationModule.Models;
+using Sentez.HrmReplicationModule.BoExtensions;
 using Sentez.HrmReplicationModule.Parameters;
 using Sentez.HrmReplicationModule.PresentationModels;
 using Sentez.Localization;
@@ -108,26 +108,10 @@ namespace Sentez.HrmReplicationModule
             RegisterList();
             HrmReplicationModuleSecurity.RegisterSecurityDefinitions();
 
-            //MenuManager.Instance.RegisterMenu("HrmReplicationModule", "HrmReplicationModuleMenu", moduleID, true);
-            //ParameterBase.AddInitExternalParameter("InventoryParameters", InitExternalParameter);
-
-            //PMBase.AddCustomInit("InventoryParams", InventoryParams_Init);
-            //PMBase.AddCustomViewLoaded("InventoryParams", InventoryParams_ViewLoaded);
-            //PMBase.AddCustomDispose("InventoryParams", InventoryParams_Dispose);
-
-            //PMBase.AddCustomInit("InventoryPM", InventoryPm_Init);
-            //PMBase.AddCustomViewLoaded("InventoryPM", InventoryPm_ViewLoaded);
-            //PMBase.AddCustomDispose("InventoryPM", InventoryPm_Dispose);
-
-            //BusinessObjectBase.AddCustomInit("CurrentAccountBO", CurrentAccountBo_Init);
-
-            //PMBase.AddCustomInit("CurrentAccountPM", CurrentAccountPm_Init);
-            //PMBase.AddCustomViewLoaded("CurrentAccountPM", CurrentAccountPm_ViewLoaded);
-            //PMBase.AddCustomDispose("CurrentAccountPM", CurrentAccountPm_Dispose);
-
+            int hrmTypeStart = 701;
             var ort = new ReceiptTypeDefinition
             {
-                Type = 701,
+                Type = hrmTypeStart++,
                 TypeName = SLanguage.GetString("IK-Mesai Kartları"),
                 Module = (short)Modules.HRMModule,
                 BoName = "HRMTimeBO"
@@ -136,10 +120,109 @@ namespace Sentez.HrmReplicationModule
 
             ort = new ReceiptTypeDefinition
             {
-                Type = 702,
+                Type = hrmTypeStart++,
                 TypeName = SLanguage.GetString("IK-Ek Ödeme-Ek Kesinti Kartları"),
                 Module = (short)Modules.HRMModule,
                 BoName = "HRMAddPaymentDeductionBO"
+            };
+            WorkFlowModuleType.WorkFlowModuleTypes.Add(ort.Type, ort);
+
+            ort = new ReceiptTypeDefinition
+            {
+                Type = hrmTypeStart++,
+                TypeName = SLanguage.GetString("IK-İzin Grup Kartları"),
+                Module = (short)Modules.HRMModule,
+                BoName = "HRMLeaveGroupBO"
+            };
+            WorkFlowModuleType.WorkFlowModuleTypes.Add(ort.Type, ort);
+
+            ort = new ReceiptTypeDefinition
+            {
+                Type = hrmTypeStart++,
+                TypeName = SLanguage.GetString("IK-İzin Tipleri Kartları"),
+                Module = (short)Modules.HRMModule,
+                BoName = "HRMLeaveTypeBO"
+            };
+            WorkFlowModuleType.WorkFlowModuleTypes.Add(ort.Type, ort);
+
+            ort = new ReceiptTypeDefinition
+            {
+                Type = hrmTypeStart++,
+                TypeName = SLanguage.GetString("IK-Pozisyon Kartları"),
+                Module = (short)Modules.HRMModule,
+                BoName = "PositionBO"
+            };
+            WorkFlowModuleType.WorkFlowModuleTypes.Add(ort.Type, ort);
+
+            ort = new ReceiptTypeDefinition
+            {
+                Type = hrmTypeStart++,
+                TypeName = SLanguage.GetString("IK-Ayrılış Neden Kartları"),
+                Module = (short)Modules.HRMModule,
+                BoName = "HrmQuitBO"
+            };
+            WorkFlowModuleType.WorkFlowModuleTypes.Add(ort.Type, ort);
+
+            ort = new ReceiptTypeDefinition
+            {
+                Type = hrmTypeStart++,
+                TypeName = SLanguage.GetString("IK-Meslek Kartları"),
+                Module = (short)Modules.HRMModule,
+                BoName = "HrmProfessionBO"
+            };
+            WorkFlowModuleType.WorkFlowModuleTypes.Add(ort.Type, ort);
+
+            ort = new ReceiptTypeDefinition
+            {
+                Type = hrmTypeStart++,
+                TypeName = SLanguage.GetString("IK-Devamsızlık Nedeni Kartları"),
+                Module = (short)Modules.HRMModule,
+                BoName = "HrmAbsenceBO"
+            };
+            WorkFlowModuleType.WorkFlowModuleTypes.Add(ort.Type, ort);
+
+            ort = new ReceiptTypeDefinition
+            {
+                Type = hrmTypeStart++,
+                TypeName = SLanguage.GetString("IK-Vergi Dilim Kartları"),
+                Module = (short)Modules.HRMModule,
+                BoName = "HrmTaxSegmentBO"
+            };
+            WorkFlowModuleType.WorkFlowModuleTypes.Add(ort.Type, ort);
+
+            ort = new ReceiptTypeDefinition
+            {
+                Type = hrmTypeStart++,
+                TypeName = SLanguage.GetString("IK-SGP Prim Kartları"),
+                Module = (short)Modules.HRMModule,
+                BoName = "HrmSsiPrmBO"
+            };
+            WorkFlowModuleType.WorkFlowModuleTypes.Add(ort.Type, ort);
+
+            ort = new ReceiptTypeDefinition
+            {
+                Type = hrmTypeStart++,
+                TypeName = SLanguage.GetString("IK-Tehlike Oran Kartları"),
+                Module = (short)Modules.HRMModule,
+                BoName = "HrmHazardSegmentBO"
+            };
+            WorkFlowModuleType.WorkFlowModuleTypes.Add(ort.Type, ort);
+
+            ort = new ReceiptTypeDefinition
+            {
+                Type = hrmTypeStart++,
+                TypeName = SLanguage.GetString("IK-Sicil Kartları"),
+                Module = (short)Modules.HRMModule,
+                BoName = "HRMEmployeeBO"
+            };
+            WorkFlowModuleType.WorkFlowModuleTypes.Add(ort.Type, ort);
+
+            ort = new ReceiptTypeDefinition
+            {
+                Type = hrmTypeStart++,
+                TypeName = SLanguage.GetString("IK-Sicil Kartı Puantaj Bilgileri"),
+                Module = (short)Modules.HRMModule,
+                BoName = "CheckingBO"
             };
             WorkFlowModuleType.WorkFlowModuleTypes.Add(ort.Type, ort);
         }
@@ -150,9 +233,83 @@ namespace Sentez.HrmReplicationModule
             if (prm.GetValue<int>("ReplicationEnabled") != 1)
                 return;
 
+            #region Mesai Kartları
             _createBulkUpdateTaskService = ActiveSession.Container.Resolve<ISystemService>("CreateBulkUpdateTaskService");
             hrmTimeBulkUpdateCommand = SysMng.Instance.RegisterCmd(moduleID, 144, "HrmTimeBulkUpdateCommand", SLanguage.GetString("Uzak Noktalara Gönder"), "HRMTimeBO", OnBulkUpdateCommand, CanBulkUpdateCommand);
             AddExtraContextItems("Hrm_TimeTimeCodeList", hrmTimeBulkUpdateCommand);
+            #endregion
+
+            #region Ek Ödeme-Ek Kesinti Kartları
+            _createBulkUpdateTaskService = ActiveSession.Container.Resolve<ISystemService>("CreateBulkUpdateTaskService");
+            hrmTimeBulkUpdateCommand = SysMng.Instance.RegisterCmd(moduleID, 144, "AddPaymentDeductionBulkUpdateCommand", SLanguage.GetString("Uzak Noktalara Gönder"), "HRMAddPaymentDeductionBO", OnBulkUpdateCommand, CanBulkUpdateCommand);
+            AddExtraContextItems("Hrm_AddPaymentDeductionAddPaymentCodeList", hrmTimeBulkUpdateCommand);
+            #endregion
+
+            #region İzin Grup Kartları
+            _createBulkUpdateTaskService = ActiveSession.Container.Resolve<ISystemService>("CreateBulkUpdateTaskService");
+            hrmTimeBulkUpdateCommand = SysMng.Instance.RegisterCmd(moduleID, 144, "AddPaymentDeductionBulkUpdateCommand", SLanguage.GetString("Uzak Noktalara Gönder"), "HRMLeaveGroupBO", OnBulkUpdateCommand, CanBulkUpdateCommand);
+            AddExtraContextItems("Hrm_LeaveGroupLeaveCodeList", hrmTimeBulkUpdateCommand);
+            #endregion
+
+            #region İzin Tipleri Kartları
+            _createBulkUpdateTaskService = ActiveSession.Container.Resolve<ISystemService>("CreateBulkUpdateTaskService");
+            hrmTimeBulkUpdateCommand = SysMng.Instance.RegisterCmd(moduleID, 144, "AddPaymentDeductionBulkUpdateCommand", SLanguage.GetString("Uzak Noktalara Gönder"), "HRMLeaveTypeBO", OnBulkUpdateCommand, CanBulkUpdateCommand);
+            AddExtraContextItems("Hrm_LeaveTypeLeaveTypeCodeList", hrmTimeBulkUpdateCommand);
+            #endregion
+
+            #region Pozisyon Kartları
+            _createBulkUpdateTaskService = ActiveSession.Container.Resolve<ISystemService>("CreateBulkUpdateTaskService");
+            hrmTimeBulkUpdateCommand = SysMng.Instance.RegisterCmd(moduleID, 144, "AddPaymentDeductionBulkUpdateCommand", SLanguage.GetString("Uzak Noktalara Gönder"), "PositionBO", OnBulkUpdateCommand, CanBulkUpdateCommand);
+            AddExtraContextItems("Hrm_PositionPositionCodeList", hrmTimeBulkUpdateCommand);
+            #endregion
+
+            #region Ayrılış Neden Kartları
+            _createBulkUpdateTaskService = ActiveSession.Container.Resolve<ISystemService>("CreateBulkUpdateTaskService");
+            hrmTimeBulkUpdateCommand = SysMng.Instance.RegisterCmd(moduleID, 144, "AddPaymentDeductionBulkUpdateCommand", SLanguage.GetString("Uzak Noktalara Gönder"), "HrmQuitBO", OnBulkUpdateCommand, CanBulkUpdateCommand);
+            AddExtraContextItems("Meta_HrmQuitQuitCodeList", hrmTimeBulkUpdateCommand);
+            #endregion
+
+            #region Meslek Kartları
+            _createBulkUpdateTaskService = ActiveSession.Container.Resolve<ISystemService>("CreateBulkUpdateTaskService");
+            hrmTimeBulkUpdateCommand = SysMng.Instance.RegisterCmd(moduleID, 144, "AddPaymentDeductionBulkUpdateCommand", SLanguage.GetString("Uzak Noktalara Gönder"), "HrmProfessionBO", OnBulkUpdateCommand, CanBulkUpdateCommand);
+            AddExtraContextItems("Meta_HrmProfessionProfessionCodeList", hrmTimeBulkUpdateCommand);
+            #endregion
+
+            #region Devamsızlık Nedeni Kartları
+            _createBulkUpdateTaskService = ActiveSession.Container.Resolve<ISystemService>("CreateBulkUpdateTaskService");
+            hrmTimeBulkUpdateCommand = SysMng.Instance.RegisterCmd(moduleID, 144, "AddPaymentDeductionBulkUpdateCommand", SLanguage.GetString("Uzak Noktalara Gönder"), "HrmAbsenceBO", OnBulkUpdateCommand, CanBulkUpdateCommand);
+            AddExtraContextItems("Meta_HrmAbsenceAbsenceCodeList", hrmTimeBulkUpdateCommand);
+            #endregion
+
+            #region Vergi Dilim Kartları
+            _createBulkUpdateTaskService = ActiveSession.Container.Resolve<ISystemService>("CreateBulkUpdateTaskService");
+            hrmTimeBulkUpdateCommand = SysMng.Instance.RegisterCmd(moduleID, 144, "AddPaymentDeductionBulkUpdateCommand", SLanguage.GetString("Uzak Noktalara Gönder"), "HrmTaxSegmentBO", OnBulkUpdateCommand, CanBulkUpdateCommand);
+            AddExtraContextItems("Meta_HrmTaxSegmentHrmTaxSegmentList", hrmTimeBulkUpdateCommand);
+            #endregion
+
+            #region SGP Prim Kartları
+            _createBulkUpdateTaskService = ActiveSession.Container.Resolve<ISystemService>("CreateBulkUpdateTaskService");
+            hrmTimeBulkUpdateCommand = SysMng.Instance.RegisterCmd(moduleID, 144, "AddPaymentDeductionBulkUpdateCommand", SLanguage.GetString("Uzak Noktalara Gönder"), "HrmSsiPrmBO", OnBulkUpdateCommand, CanBulkUpdateCommand);
+            AddExtraContextItems("Meta_HrmSsiPrmHrmSsiPrmList", hrmTimeBulkUpdateCommand);
+            #endregion
+
+            #region Tehlike Oran Kartları
+            _createBulkUpdateTaskService = ActiveSession.Container.Resolve<ISystemService>("CreateBulkUpdateTaskService");
+            hrmTimeBulkUpdateCommand = SysMng.Instance.RegisterCmd(moduleID, 144, "AddPaymentDeductionBulkUpdateCommand", SLanguage.GetString("Uzak Noktalara Gönder"), "HrmHazardSegmentBO", OnBulkUpdateCommand, CanBulkUpdateCommand);
+            AddExtraContextItems("Meta_HrmHazardSegmentHrmHazardSegmentList", hrmTimeBulkUpdateCommand);
+            #endregion
+
+            #region Sicil Kartları
+            _createBulkUpdateTaskService = ActiveSession.Container.Resolve<ISystemService>("CreateBulkUpdateTaskService");
+            hrmTimeBulkUpdateCommand = SysMng.Instance.RegisterCmd(moduleID, 144, "AddPaymentDeductionBulkUpdateCommand", SLanguage.GetString("Uzak Noktalara Gönder-Sicil Kartları"), "HRMEmployeeBO", OnBulkUpdateCommand, CanBulkUpdateCommand);
+            AddExtraContextItems("Erp_EmployeeHRMEmployeeCodeList", hrmTimeBulkUpdateCommand);
+            #endregion
+
+            #region Sicil Kartı Puantaj Bilgileri
+            _createBulkUpdateTaskService = ActiveSession.Container.Resolve<ISystemService>("CreateBulkUpdateTaskService");
+            hrmTimeBulkUpdateCommand = SysMng.Instance.RegisterCmd(moduleID, 144, "AddPaymentDeductionBulkUpdateCommand", SLanguage.GetString("Uzak Noktalara Gönder-Puantaj Bilgileri"), "CheckingBO", OnBulkUpdateCommand, CanBulkUpdateCommand);
+            AddExtraContextItems("Erp_EmployeeHRMEmployeeCodeList", hrmTimeBulkUpdateCommand);
+            #endregion
         }
 
         private void OnBulkUpdateCommand(ISysCommandParam prm)
@@ -219,25 +376,13 @@ namespace Sentez.HrmReplicationModule
 
         private void RegisterBO()
         {
-            //_container.Register<IBusinessObject, VehicleAssignmentBO>("VehicleAssignmentBO");
-            //_container.Register<IBusinessObject, VehicleInspectionBO>("VehicleInspectionBO");
-            //_container.Register<IBusinessObject, VehicleMaintenanceBO>("VehicleMaintenanceBO");
         }
 
         private void RegisterServices()
         {
             ParameterFactory.StaticFactory.RegisterParameterClass(typeof(HrmReplicationModuleParameters), (int)Modules.ExternalModule22);
             _container.Register<ISystemService, CreatMetaDataFieldsService>("CreatMetaDataFieldsService");
-            //BusinessObjectBase.AddCustomExtension("OrderReceiptBO", typeof(OrderReceiptControlExtension));
-
-            //BusinessObjectBase.AddCustomConstruction("CurrentAccountBO", CurrentAccountBoCustomCons);
-            //BusinessObjectBase.AddCustomInit("CurrentAccountBO", CurrentAccountBo_Init);
-
-            //BusinessObjectBase.AddCustomConstruction("CRMCustomerTransactionBO", CrmCustomerTransactionBoCustomCons);
-            //BusinessObjectBase.AddCustomInit("CRMCustomerTransactionBO", CrmCustomerTransactionBo_Init);
-
-            //PMBase.AddCustomInit("CurrentAccountPM", CurrentAccountPm_Init);
-            //PMBase.AddCustomInit("CRMCustomerTransactionPM", CrmCustomerTransactionPm_Init);
+            BusinessObjectBase.AddCustomExtension("InvoiceBO", typeof(CurrentAccountReplicationTaskExtension));
         }
 
         private void RegisterRes()
@@ -247,17 +392,11 @@ namespace Sentez.HrmReplicationModule
 
         private void RegisterList()
         {
-            //_container.Register<IReport, CrmActivityTypeList>("Crm_ActivityTypeTypeNameList");
-            //_container.Register<IReport, CrmActivityChecklistItemList>("Crm_ActivityChecklistItemChecklistTitleList");
         }
 
         private void RegisterViews()
         {
             ResMng.AddRes("HrmReplicationModuleParametersView", "HrmReplicationModule;component/Views/HrmReplicationModuleParameters.xaml", ResSource.Resource, ResourceType.View, Modules.ExternalModule22, 0, 0);
-            //ResMng.AddRes("VehicleAssignmentView", "HrmReplicationModule;component/Views/VehicleAssignment.xaml", ResSource.Resource, ResourceType.View, Modules.ExternalModule22, 0, 0);
-            //ResMng.AddRes("VehicleInspectionView", "HrmReplicationModule;component/Views/VehicleInspection.xaml", ResSource.Resource, ResourceType.View, Modules.ExternalModule22, 0, 0);
-            //ResMng.AddRes("VehicleMaintenanceView", "HrmReplicationModule;component/Views/VehicleMaintenance.xaml", ResSource.Resource, ResourceType.View, Modules.ExternalModule22, 0, 0);
-            //ResMng.AddRes("CurrentAccountAttachmentAddressView", "HrmReplicationModule;component/Views/CurrentAccountAttachmentAddress.xaml", ResSource.Resource, ResourceType.View, Modules.ExternalModule22, 0, 0);
         }
 
         private void RegisterPM()
@@ -267,7 +406,6 @@ namespace Sentez.HrmReplicationModule
 
         private void RegisterRpr()
         {
-            //_container.Register<IReport, SalesShipmentComparePolicy>("SalesShipmentComparePolicy");
         }
 
         public void RegisterCoreDocuments()
@@ -288,21 +426,44 @@ namespace Sentez.HrmReplicationModule
         {
             liveSession = _sysMng.getSession();
 
-            //if (!Schema.Tables["Erp_Inventory"].Fields.Contains("UD_SubGroup"))
-            //    CreatMetaDataFieldsService.CreatMetaDataFields("Erp_Inventory", "UD_SubGroup", SLanguage.GetString("Alt Grup"), (byte)UdtType.UdtCode, (byte)FieldUsage.Code, (byte)EditorType.ListSelector, (byte)ValueInputMethod.FreeTypeAndAddToList, 0);
-            //if (!Schema.Tables["Erp_Inventory"].Fields.Contains("UD_Property"))
-            //    CreatMetaDataFieldsService.CreatMetaDataFields("Erp_Inventory", "UD_Property", SLanguage.GetString("Özellik"), (byte)UdtType.UdtCode, (byte)FieldUsage.Code, (byte)EditorType.ListSelector, (byte)ValueInputMethod.FreeTypeAndAddToList, 0);
-            //if (!Schema.Tables["Erp_Inventory"].Fields.Contains("UD_Weight"))
-            //    CreatMetaDataFieldsService.CreatMetaDataFields("Erp_Inventory", "UD_Weight", SLanguage.GetString("Ağırlık"), (byte)UdtType.UdtCode, (byte)FieldUsage.Code, (byte)EditorType.ListSelector, (byte)ValueInputMethod.FreeTypeAndAddToList, 0);
+            // 1. Bu cari karta ait hareketler replike edilecek mi?
+            if (!Schema.Tables["Erp_CurrentAccount"].Fields.Contains("UD_IsTransactionReplicable"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_CurrentAccount",
+                    "UD_IsTransactionReplicable",
+                    SLanguage.GetString("Replikasyon Aktif"),
+                    (byte)UdtType.UdtBool,
+                    (byte)FieldUsage.Bool,
+                    (byte)EditorType.CheckBox,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
 
-            //if (!Schema.Tables["Erp_Service"].Fields.Contains("UD_SubGroup"))
-            //    CreatMetaDataFieldsService.CreatMetaDataFields("Erp_Service", "UD_SubGroup", SLanguage.GetString("Alt Grup"), (byte)UdtType.UdtCode, (byte)FieldUsage.Code, (byte)EditorType.ListSelector, (byte)ValueInputMethod.FreeTypeAndAddToList, 0);
-            //if (!Schema.Tables["Erp_Service"].Fields.Contains("UD_Property"))
-            //    CreatMetaDataFieldsService.CreatMetaDataFields("Erp_Service", "UD_Property", SLanguage.GetString("Özellik"), (byte)UdtType.UdtCode, (byte)FieldUsage.Code, (byte)EditorType.ListSelector, (byte)ValueInputMethod.FreeTypeAndAddToList, 0);
-            //if (!Schema.Tables["Erp_Service"].Fields.Contains("UD_Weight"))
-            //    CreatMetaDataFieldsService.CreatMetaDataFields("Erp_Service", "UD_Weight", SLanguage.GetString("Ağırlık"), (byte)UdtType.UdtCode, (byte)FieldUsage.Code, (byte)EditorType.ListSelector, (byte)ValueInputMethod.FreeTypeAndAddToList, 0);
-            //if (!Schema.Tables["Erp_Service"].Fields.Contains("UD_InventoryId"))
-            //    CreatMetaDataFieldsService.CreatMetaDataFields("Erp_Service", "UD_InventoryId", SLanguage.GetString("Malzeme ID"), (byte)UdtType.UdtInt64, (byte)FieldUsage.None, (byte)EditorType.ReadOnlyTextEditor, (byte)ValueInputMethod.FreeTypeAndAddToList, 0);
+            // 2. Replikasyon başlangıç tarihi
+            if (!Schema.Tables["Erp_CurrentAccount"].Fields.Contains("UD_ReplicationStartDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                "Erp_CurrentAccount",
+                "UD_ReplicationStartDate",
+                SLanguage.GetString("Replikasyon Başlangıç"),
+                (byte)UdtType.UdtDate,
+                (byte)FieldUsage.Date,
+                (byte)EditorType.DateEditor,
+                (byte)ValueInputMethod.FreeType,
+                0
+            );
+
+            // 3. Replikasyon bitiş tarihi
+            if (!Schema.Tables["Erp_CurrentAccount"].Fields.Contains("UD_ReplicationEndDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                "Erp_CurrentAccount",
+                "UD_ReplicationEndDate",
+                SLanguage.GetString("Replikasyon Bitiş"),
+                (byte)UdtType.UdtDate,
+                (byte)FieldUsage.Date,
+                (byte)EditorType.DateEditor,
+                (byte)ValueInputMethod.FreeType,
+                0
+            );
 
             HrmReplicationModuleParameters = liveSession.ParamService.GetParameterClass<HrmReplicationModuleParameters>();
         }
