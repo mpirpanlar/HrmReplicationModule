@@ -36,6 +36,12 @@ namespace Sentez.HrmReplicationModule.BoExtensions
             base.OnColumnChanged(sender, e);
             if (!Enabled || _suppressEvents)
                 return;
+
+            // CurrentAccountId değiştiğinde kart değerlerini fatura tablosuna kopyala
+            if (e.Column != null && e.Column.ColumnName == "CurrentAccountId" && BusinessObject.CurrentRow?.Row != null)
+            {
+                CopyReplicationFieldsFromCardToInvoice();
+            }
         }
 
         protected override void OnBeforePost(object sender, CancelEventArgs e)
@@ -43,6 +49,12 @@ namespace Sentez.HrmReplicationModule.BoExtensions
             if (!Enabled || _suppressEvents)
                 return;
             base.OnBeforePost(sender, e);
+
+            // Kayıt öncesi kart değerlerini fatura tablosuna kopyala (eğer henüz kopyalanmadıysa)
+            if (BusinessObject.CurrentRow?.Row != null)
+            {
+                CopyReplicationFieldsFromCardToInvoice();
+            }
         }
 
         protected override void OnAfterSucceededPost(object sender, EventArgs e)
@@ -51,45 +63,24 @@ namespace Sentez.HrmReplicationModule.BoExtensions
 
             bool isOk = true;
 
-            long currAccId;
-            if (!long.TryParse(BusinessObject.CurrentRow["CurrentAccountId"]?.ToString(), out currAccId))
-                isOk = false;
+            // Evrak (fatura) tablosundaki alanlardan kontrol yap
+            DataRow invoiceRow = BusinessObject.CurrentRow?.Row;
+            if (invoiceRow == null)
+                return;
 
             DateTime receiptDate;
-            if (!DateTime.TryParse(BusinessObject.CurrentRow["ReceiptDate"]?.ToString(), out receiptDate))
+            if (!DateTime.TryParse(invoiceRow["ReceiptDate"]?.ToString(), out receiptDate))
                 isOk = false;
 
-            DataRow row = null;
-
             if (isOk)
             {
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine("select");
-                sb.AppendLine(" UD_IsTransactionReplicable,");
-                sb.AppendLine(" UD_ReplicationStartDate,");
-                sb.AppendLine(" UD_ReplicationEndDate");
-                sb.AppendLine(" from Erp_CurrentAccount with (nolock)");
-                sb.AppendFormat(" where RecId = {0}", currAccId);
-
-                DataTable dt = UtilityFunctions.GetDataTableList(
-                    BusinessObject.ActiveSession.dbInfo.DBProvider,
-                    BusinessObject.ActiveSession.dbInfo.Connection,
-                    null,
-                    "Erp_CurrentAccount",
-                    sb.ToString()
-                );
-
-                if (dt == null || dt.Rows.Count == 0)
-                    isOk = false;
-                else
-                    row = dt.Rows[0];
-            }
-
-            if (isOk)
-            {
-                bool isReplicable =
-                    row["UD_IsTransactionReplicable"] != DBNull.Value &&
-                    Convert.ToBoolean(row["UD_IsTransactionReplicable"]);
+                // Replikasyon aktif mi kontrolü (evrak tablosundan)
+                bool isReplicable = false;
+                if (invoiceRow.Table.Columns.Contains("UD_IsTransactionReplicable") &&
+                    invoiceRow["UD_IsTransactionReplicable"] != DBNull.Value)
+                {
+                    isReplicable = Convert.ToBoolean(invoiceRow["UD_IsTransactionReplicable"]);
+                }
 
                 if (!isReplicable)
                     isOk = false;
@@ -98,18 +89,21 @@ namespace Sentez.HrmReplicationModule.BoExtensions
             DateTime? startDate = null;
             DateTime? endDate = null;
 
-            if (isOk)
+            if (isOk && invoiceRow.Table.Columns.Contains("UD_ReplicationStartDate"))
             {
-                startDate = row["UD_ReplicationStartDate"] == DBNull.Value
+                startDate = invoiceRow["UD_ReplicationStartDate"] == DBNull.Value
                     ? (DateTime?)null
-                    : Convert.ToDateTime(row["UD_ReplicationStartDate"]);
-
-                endDate = row["UD_ReplicationEndDate"] == DBNull.Value
-                    ? (DateTime?)null
-                    : Convert.ToDateTime(row["UD_ReplicationEndDate"]);
+                    : Convert.ToDateTime(invoiceRow["UD_ReplicationStartDate"]);
 
                 if (startDate.HasValue && receiptDate < startDate.Value)
                     isOk = false;
+            }
+
+            if (isOk && invoiceRow.Table.Columns.Contains("UD_ReplicationEndDate"))
+            {
+                endDate = invoiceRow["UD_ReplicationEndDate"] == DBNull.Value
+                    ? (DateTime?)null
+                    : Convert.ToDateTime(invoiceRow["UD_ReplicationEndDate"]);
 
                 if (endDate.HasValue && receiptDate > endDate.Value)
                     isOk = false;
@@ -117,14 +111,79 @@ namespace Sentez.HrmReplicationModule.BoExtensions
 
             if (isOk)
             {
-                // ================================
-                // Task oluşturma buraya yapılacak
-                // ================================
                 System.Collections.ArrayList prm = new System.Collections.ArrayList
                 {
-                    Convert.ToInt64(BusinessObject.CurrentRow["RecId"].ToString())
+                    Convert.ToInt64(invoiceRow["RecId"].ToString())
                 };
                 CreateBulkUpdateTask(BusinessObject.Name, prm.ToArray(), true);
+            }
+        }
+
+        /// <summary>
+        /// Cari hesap kartındaki replikasyon alanlarını fatura tablosuna kopyalar
+        /// </summary>
+        private void CopyReplicationFieldsFromCardToInvoice()
+        {
+            if (BusinessObject.CurrentRow?.Row == null)
+                return;
+
+            DataRow invoiceRow = BusinessObject.CurrentRow.Row;
+
+            // CurrentAccountId kontrolü
+            long currAccId;
+            if (!long.TryParse(invoiceRow["CurrentAccountId"]?.ToString(), out currAccId))
+                return;
+
+            // Fatura tablosunda replikasyon alanları var mı kontrol et
+            DataTable invoiceTable = BusinessObject.Data?.Tables["Erp_Invoice"];
+            if (invoiceTable == null || !invoiceTable.Columns.Contains("UD_IsTransactionReplicable"))
+                return;
+
+            // Cari hesap kartındaki replikasyon değerlerini sorgula
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("select");
+            sb.AppendLine(" UD_IsTransactionReplicable,");
+            sb.AppendLine(" UD_ReplicationStartDate,");
+            sb.AppendLine(" UD_ReplicationEndDate");
+            sb.AppendLine(" from Erp_CurrentAccount with (nolock)");
+            sb.AppendFormat(" where RecId = {0}", currAccId);
+
+            DataTable dt = UtilityFunctions.GetDataTableList(
+                BusinessObject.ActiveSession.dbInfo.DBProvider,
+                BusinessObject.ActiveSession.dbInfo.Connection,
+                null,
+                "Erp_CurrentAccount",
+                sb.ToString()
+            );
+
+            if (dt == null || dt.Rows.Count == 0)
+                return;
+
+            DataRow cardRow = dt.Rows[0];
+
+            // Kart değerlerini fatura tablosuna kopyala
+            if (invoiceRow.Table.Columns.Contains("UD_IsTransactionReplicable"))
+            {
+                invoiceRow["UD_IsTransactionReplicable"] = 
+                    cardRow["UD_IsTransactionReplicable"] == DBNull.Value 
+                    ? (object)DBNull.Value 
+                    : cardRow["UD_IsTransactionReplicable"];
+            }
+
+            if (invoiceRow.Table.Columns.Contains("UD_ReplicationStartDate"))
+            {
+                invoiceRow["UD_ReplicationStartDate"] = 
+                    cardRow["UD_ReplicationStartDate"] == DBNull.Value 
+                    ? (object)DBNull.Value 
+                    : cardRow["UD_ReplicationStartDate"];
+            }
+
+            if (invoiceRow.Table.Columns.Contains("UD_ReplicationEndDate"))
+            {
+                invoiceRow["UD_ReplicationEndDate"] = 
+                    cardRow["UD_ReplicationEndDate"] == DBNull.Value 
+                    ? (object)DBNull.Value 
+                    : cardRow["UD_ReplicationEndDate"];
             }
         }
 

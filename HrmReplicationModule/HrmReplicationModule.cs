@@ -107,7 +107,9 @@ namespace Sentez.HrmReplicationModule
             RegisterServices();
             RegisterList();
             HrmReplicationModuleSecurity.RegisterSecurityDefinitions();
+            MenuManager.Instance.RegisterMenu("HrmReplicationModule", "HrmReplicationModuleMenu", moduleID, true);
 
+            #region Commands
             int hrmTypeStart = 701;
             var ort = new ReceiptTypeDefinition
             {
@@ -225,6 +227,7 @@ namespace Sentez.HrmReplicationModule
                 BoName = "CheckingBO"
             };
             WorkFlowModuleType.WorkFlowModuleTypes.Add(ort.Type, ort);
+            #endregion
         }
 
         private void RegisterServiceCommands()
@@ -383,6 +386,10 @@ namespace Sentez.HrmReplicationModule
             ParameterFactory.StaticFactory.RegisterParameterClass(typeof(HrmReplicationModuleParameters), (int)Modules.ExternalModule22);
             _container.Register<ISystemService, CreatMetaDataFieldsService>("CreatMetaDataFieldsService");
             BusinessObjectBase.AddCustomExtension("InvoiceBO", typeof(CurrentAccountReplicationTaskExtension));
+            BusinessObjectBase.AddCustomExtension("BankReceiptBO", typeof(BankReceiptReplicationTaskExtension));
+            BusinessObjectBase.AddCustomExtension("CurrentAccountReceiptBO", typeof(CurrentAccountReceiptReplicationTaskExtension));
+            BusinessObjectBase.AddCustomExtension("ChequeReceiptBO", typeof(ChequeReceiptReplicationTaskExtension));
+            BusinessObjectBase.AddCustomExtension("GLReceiptBO", typeof(GLReceiptReplicationTaskExtension));
         }
 
         private void RegisterRes()
@@ -418,9 +425,6 @@ namespace Sentez.HrmReplicationModule
         {
             return DbScripts.LoadFromAssembly(Assembly.GetAssembly(typeof(HrmReplicationModule)), "HrmReplicationModule.HrmReplicationModuleDbUpdateScripts.xml");
         }
-
-        private CancellationTokenSource bilgeceBoomerangCts;
-        private static readonly object bilgeceBoomerangLockKey = new object();
 
         private void _sysMng_AfterDesktopLogin(object sender, EventArgs e)
         {
@@ -464,6 +468,366 @@ namespace Sentez.HrmReplicationModule
                 (byte)ValueInputMethod.FreeType,
                 0
             );
+
+            // Fatura (Erp_Invoice) tablosuna replikasyon alanlarını ekle
+            // 1. Replikasyon Aktif alanı
+            if (!Schema.Tables["Erp_Invoice"].Fields.Contains("UD_IsTransactionReplicable"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_Invoice",
+                    "UD_IsTransactionReplicable",
+                    SLanguage.GetString("Replikasyon Aktif"),
+                    (byte)UdtType.UdtBool,
+                    (byte)FieldUsage.Bool,
+                    (byte)EditorType.CheckBox,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // 2. Replikasyon başlangıç tarihi
+            if (!Schema.Tables["Erp_Invoice"].Fields.Contains("UD_ReplicationStartDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_Invoice",
+                    "UD_ReplicationStartDate",
+                    SLanguage.GetString("Replikasyon Başlangıç"),
+                    (byte)UdtType.UdtDate,
+                    (byte)FieldUsage.Date,
+                    (byte)EditorType.DateEditor,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // 3. Replikasyon bitiş tarihi
+            if (!Schema.Tables["Erp_Invoice"].Fields.Contains("UD_ReplicationEndDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_Invoice",
+                    "UD_ReplicationEndDate",
+                    SLanguage.GetString("Replikasyon Bitiş"),
+                    (byte)UdtType.UdtDate,
+                    (byte)FieldUsage.Date,
+                    (byte)EditorType.DateEditor,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // Banka Fişi (Erp_BankReceipt) tablosuna replikasyon alanlarını ekle
+            // 1. Replikasyon Aktif alanı
+            if (!Schema.Tables["Erp_BankReceipt"].Fields.Contains("UD_IsTransactionReplicable"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_BankReceipt",
+                    "UD_IsTransactionReplicable",
+                    SLanguage.GetString("Replikasyon Aktif"),
+                    (byte)UdtType.UdtBool,
+                    (byte)FieldUsage.Bool,
+                    (byte)EditorType.CheckBox,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // 2. Replikasyon başlangıç tarihi
+            if (!Schema.Tables["Erp_BankReceipt"].Fields.Contains("UD_ReplicationStartDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_BankReceipt",
+                    "UD_ReplicationStartDate",
+                    SLanguage.GetString("Replikasyon Başlangıç"),
+                    (byte)UdtType.UdtDate,
+                    (byte)FieldUsage.Date,
+                    (byte)EditorType.DateEditor,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // 3. Replikasyon bitiş tarihi
+            if (!Schema.Tables["Erp_BankReceipt"].Fields.Contains("UD_ReplicationEndDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_BankReceipt",
+                    "UD_ReplicationEndDate",
+                    SLanguage.GetString("Replikasyon Bitiş"),
+                    (byte)UdtType.UdtDate,
+                    (byte)FieldUsage.Date,
+                    (byte)EditorType.DateEditor,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // Banka Fişi Detay (Erp_BankReceiptItem) tablosuna replikasyon alanlarını ekle
+            // 1. Replikasyon Aktif alanı
+            if (!Schema.Tables["Erp_BankReceiptItem"].Fields.Contains("UD_IsTransactionReplicable"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_BankReceiptItem",
+                    "UD_IsTransactionReplicable",
+                    SLanguage.GetString("Replikasyon Aktif"),
+                    (byte)UdtType.UdtBool,
+                    (byte)FieldUsage.Bool,
+                    (byte)EditorType.CheckBox,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // 2. Replikasyon başlangıç tarihi
+            if (!Schema.Tables["Erp_BankReceiptItem"].Fields.Contains("UD_ReplicationStartDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_BankReceiptItem",
+                    "UD_ReplicationStartDate",
+                    SLanguage.GetString("Replikasyon Başlangıç"),
+                    (byte)UdtType.UdtDate,
+                    (byte)FieldUsage.Date,
+                    (byte)EditorType.DateEditor,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // 3. Replikasyon bitiş tarihi
+            if (!Schema.Tables["Erp_BankReceiptItem"].Fields.Contains("UD_ReplicationEndDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_BankReceiptItem",
+                    "UD_ReplicationEndDate",
+                    SLanguage.GetString("Replikasyon Bitiş"),
+                    (byte)UdtType.UdtDate,
+                    (byte)FieldUsage.Date,
+                    (byte)EditorType.DateEditor,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // Cari Hesap Fişi (Erp_CurrentAccountReceipt) tablosuna replikasyon alanlarını ekle
+            // 1. Replikasyon Aktif alanı
+            if (!Schema.Tables["Erp_CurrentAccountReceipt"].Fields.Contains("UD_IsTransactionReplicable"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_CurrentAccountReceipt",
+                    "UD_IsTransactionReplicable",
+                    SLanguage.GetString("Replikasyon Aktif"),
+                    (byte)UdtType.UdtBool,
+                    (byte)FieldUsage.Bool,
+                    (byte)EditorType.CheckBox,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // 2. Replikasyon başlangıç tarihi
+            if (!Schema.Tables["Erp_CurrentAccountReceipt"].Fields.Contains("UD_ReplicationStartDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_CurrentAccountReceipt",
+                    "UD_ReplicationStartDate",
+                    SLanguage.GetString("Replikasyon Başlangıç"),
+                    (byte)UdtType.UdtDate,
+                    (byte)FieldUsage.Date,
+                    (byte)EditorType.DateEditor,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // 3. Replikasyon bitiş tarihi
+            if (!Schema.Tables["Erp_CurrentAccountReceipt"].Fields.Contains("UD_ReplicationEndDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_CurrentAccountReceipt",
+                    "UD_ReplicationEndDate",
+                    SLanguage.GetString("Replikasyon Bitiş"),
+                    (byte)UdtType.UdtDate,
+                    (byte)FieldUsage.Date,
+                    (byte)EditorType.DateEditor,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // Cari Hesap Fişi Detay (Erp_CurrentAccountReceiptItem) tablosuna replikasyon alanlarını ekle
+            // 1. Replikasyon Aktif alanı
+            if (!Schema.Tables["Erp_CurrentAccountReceiptItem"].Fields.Contains("UD_IsTransactionReplicable"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_CurrentAccountReceiptItem",
+                    "UD_IsTransactionReplicable",
+                    SLanguage.GetString("Replikasyon Aktif"),
+                    (byte)UdtType.UdtBool,
+                    (byte)FieldUsage.Bool,
+                    (byte)EditorType.CheckBox,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // 2. Replikasyon başlangıç tarihi
+            if (!Schema.Tables["Erp_CurrentAccountReceiptItem"].Fields.Contains("UD_ReplicationStartDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_CurrentAccountReceiptItem",
+                    "UD_ReplicationStartDate",
+                    SLanguage.GetString("Replikasyon Başlangıç"),
+                    (byte)UdtType.UdtDate,
+                    (byte)FieldUsage.Date,
+                    (byte)EditorType.DateEditor,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // 3. Replikasyon bitiş tarihi
+            if (!Schema.Tables["Erp_CurrentAccountReceiptItem"].Fields.Contains("UD_ReplicationEndDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_CurrentAccountReceiptItem",
+                    "UD_ReplicationEndDate",
+                    SLanguage.GetString("Replikasyon Bitiş"),
+                    (byte)UdtType.UdtDate,
+                    (byte)FieldUsage.Date,
+                    (byte)EditorType.DateEditor,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // Çek Fişi (Erp_ChequeReceipt) tablosuna replikasyon alanlarını ekle
+            // 1. Replikasyon Aktif alanı
+            if (!Schema.Tables["Erp_ChequeReceipt"].Fields.Contains("UD_IsTransactionReplicable"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_ChequeReceipt",
+                    "UD_IsTransactionReplicable",
+                    SLanguage.GetString("Replikasyon Aktif"),
+                    (byte)UdtType.UdtBool,
+                    (byte)FieldUsage.Bool,
+                    (byte)EditorType.CheckBox,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // 2. Replikasyon başlangıç tarihi
+            if (!Schema.Tables["Erp_ChequeReceipt"].Fields.Contains("UD_ReplicationStartDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_ChequeReceipt",
+                    "UD_ReplicationStartDate",
+                    SLanguage.GetString("Replikasyon Başlangıç"),
+                    (byte)UdtType.UdtDate,
+                    (byte)FieldUsage.Date,
+                    (byte)EditorType.DateEditor,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // 3. Replikasyon bitiş tarihi
+            if (!Schema.Tables["Erp_ChequeReceipt"].Fields.Contains("UD_ReplicationEndDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_ChequeReceipt",
+                    "UD_ReplicationEndDate",
+                    SLanguage.GetString("Replikasyon Bitiş"),
+                    (byte)UdtType.UdtDate,
+                    (byte)FieldUsage.Date,
+                    (byte)EditorType.DateEditor,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // Çek Fişi Detay (Erp_ChequeReceiptItem) tablosuna replikasyon alanlarını ekle
+            // 1. Replikasyon Aktif alanı
+            if (!Schema.Tables["Erp_ChequeReceiptItem"].Fields.Contains("UD_IsTransactionReplicable"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_ChequeReceiptItem",
+                    "UD_IsTransactionReplicable",
+                    SLanguage.GetString("Replikasyon Aktif"),
+                    (byte)UdtType.UdtBool,
+                    (byte)FieldUsage.Bool,
+                    (byte)EditorType.CheckBox,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // 2. Replikasyon başlangıç tarihi
+            if (!Schema.Tables["Erp_ChequeReceiptItem"].Fields.Contains("UD_ReplicationStartDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_ChequeReceiptItem",
+                    "UD_ReplicationStartDate",
+                    SLanguage.GetString("Replikasyon Başlangıç"),
+                    (byte)UdtType.UdtDate,
+                    (byte)FieldUsage.Date,
+                    (byte)EditorType.DateEditor,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // 3. Replikasyon bitiş tarihi
+            if (!Schema.Tables["Erp_ChequeReceiptItem"].Fields.Contains("UD_ReplicationEndDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_ChequeReceiptItem",
+                    "UD_ReplicationEndDate",
+                    SLanguage.GetString("Replikasyon Bitiş"),
+                    (byte)UdtType.UdtDate,
+                    (byte)FieldUsage.Date,
+                    (byte)EditorType.DateEditor,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // GL Hesap Kartı (Erp_GLAccount) tablosuna replikasyon alanlarını ekle
+            // 1. Replikasyon Aktif alanı
+            if (!Schema.Tables["Erp_GLAccount"].Fields.Contains("UD_IsTransactionReplicable"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_GLAccount",
+                    "UD_IsTransactionReplicable",
+                    SLanguage.GetString("Replikasyon Aktif"),
+                    (byte)UdtType.UdtBool,
+                    (byte)FieldUsage.Bool,
+                    (byte)EditorType.CheckBox,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // 2. Replikasyon başlangıç tarihi
+            if (!Schema.Tables["Erp_GLAccount"].Fields.Contains("UD_ReplicationStartDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_GLAccount",
+                    "UD_ReplicationStartDate",
+                    SLanguage.GetString("Replikasyon Başlangıç"),
+                    (byte)UdtType.UdtDate,
+                    (byte)FieldUsage.Date,
+                    (byte)EditorType.DateEditor,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // 3. Replikasyon bitiş tarihi
+            if (!Schema.Tables["Erp_GLAccount"].Fields.Contains("UD_ReplicationEndDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_GLAccount",
+                    "UD_ReplicationEndDate",
+                    SLanguage.GetString("Replikasyon Bitiş"),
+                    (byte)UdtType.UdtDate,
+                    (byte)FieldUsage.Date,
+                    (byte)EditorType.DateEditor,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // Muhasebe Fişi Detay (Erp_GLReceiptItem) tablosuna replikasyon alanlarını ekle
+            // 1. Replikasyon Aktif alanı
+            if (!Schema.Tables["Erp_GLReceiptItem"].Fields.Contains("UD_IsTransactionReplicable"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_GLReceiptItem",
+                    "UD_IsTransactionReplicable",
+                    SLanguage.GetString("Replikasyon Aktif"),
+                    (byte)UdtType.UdtBool,
+                    (byte)FieldUsage.Bool,
+                    (byte)EditorType.CheckBox,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // 2. Replikasyon başlangıç tarihi
+            if (!Schema.Tables["Erp_GLReceiptItem"].Fields.Contains("UD_ReplicationStartDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_GLReceiptItem",
+                    "UD_ReplicationStartDate",
+                    SLanguage.GetString("Replikasyon Başlangıç"),
+                    (byte)UdtType.UdtDate,
+                    (byte)FieldUsage.Date,
+                    (byte)EditorType.DateEditor,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
+
+            // 3. Replikasyon bitiş tarihi
+            if (!Schema.Tables["Erp_GLReceiptItem"].Fields.Contains("UD_ReplicationEndDate"))
+                CreatMetaDataFieldsService.CreatMetaDataFields(
+                    "Erp_GLReceiptItem",
+                    "UD_ReplicationEndDate",
+                    SLanguage.GetString("Replikasyon Bitiş"),
+                    (byte)UdtType.UdtDate,
+                    (byte)FieldUsage.Date,
+                    (byte)EditorType.DateEditor,
+                    (byte)ValueInputMethod.FreeType,
+                    0
+                );
 
             HrmReplicationModuleParameters = liveSession.ParamService.GetParameterClass<HrmReplicationModuleParameters>();
         }

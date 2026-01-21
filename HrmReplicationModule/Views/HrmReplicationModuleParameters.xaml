@@ -37,10 +37,10 @@
                 </Grid>
             </live:LiveDockPanel>
             <live:LiveTabControl Grid.Column="0" Grid.Row="0" Padding="0" Name="TabGenel">
-                <live:LiveTabItem Header="{lange:TranslateExtension Genel}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-                    <Grid>
+                <live:LiveTabItem Header="{lange:TranslateExtension SQL Bağlantı Bilgileri}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                    <Grid Margin="10">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="200" />
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -49,20 +49,44 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <live:LiveLabel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Content="{lange:TranslateExtension Boomerang GET Url}"/>
-                        <live:LiveTextEdit Grid.Row="1" Grid.Column="1" Margin="5,0,0,0" HorizontalAlignment="Left" Width="400" Text="{sye:SBinding Path=Parameters.HotelsboomerangGetUrl}"/>
+                        <live:LiveLabel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,5" Content="{lange:TranslateExtension Sunucu}"/>
+                        <live:LiveTextEdit Grid.Row="1" Grid.Column="1" Margin="5,5,0,0" HorizontalAlignment="Left" Width="400" Text="{sye:SBinding Path=Parameters.TargetServer}"/>
 
-                        <live:LiveLabel Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Content="{lange:TranslateExtension Bearer Kodu}"/>
-                        <live:LiveTextEdit Grid.Row="2" Grid.Column="1" Margin="5,0,0,0" HorizontalAlignment="Left" Width="400" Text="{sye:SBinding Path=Parameters.BearerCode}"/>
+                        <live:LiveLabel Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,5" Content="{lange:TranslateExtension Veritabanı}"/>
+                        <live:LiveTextEdit Grid.Row="2" Grid.Column="1" Margin="5,5,0,0" HorizontalAlignment="Left" Width="400" Text="{sye:SBinding Path=Parameters.TargetDatabase}"/>
 
-                        <live:LiveLabel Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Content="{lange:TranslateExtension Hizmet Kodu}"/>
-                        <live:LiveTextEdit Grid.Row="3" Grid.Column="1" Margin="5,0,0,0" HorizontalAlignment="Left" Width="400" Text="{sye:SBinding Path=Parameters.BookingServiceCode}"/>
+                        <live:LiveLabel Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,5" Content="{lange:TranslateExtension Kullanıcı Adı}"/>
+                        <live:LiveTextEdit Grid.Row="3" Grid.Column="1" Margin="5,5,0,0" HorizontalAlignment="Left" Width="400" 
+                                           Text="{sye:SBinding Path=Parameters.TargetUserName}"/>
 
-                        <live:LiveLabel Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Content="{lange:TranslateExtension Kontrol Aralığı (Sn.)}"/>
-                        <live:LiveTextEdit Grid.Row="4" Grid.Column="1" Margin="5,0,0,0" HorizontalAlignment="Left" Width="50" Text="{sye:SBinding Path=Parameters.BookingCheckPeriod}"/>
+                        <live:LiveLabel Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,5" Content="{lange:TranslateExtension Şifre}"/>
+                        <live:LivePasswordBoxEdit Grid.Row="4" Grid.Column="1" Margin="5,5,0,0" HorizontalAlignment="Left" Width="400" 
+                                           PasswordChar="*"
+                                           Text="{sye:SBinding Path=Parameters.TargetPassword}"/>
+
+                        <live:LiveLabel Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,5" Content="{lange:TranslateExtension Hedef Şirket Kodu}"/>
+                        <live:LiveTextEdit Grid.Row="5" Grid.Column="1" Margin="5,5,0,0" HorizontalAlignment="Left" Width="400" Text="{sye:SBinding Path=Parameters.TargetCompanyCode}"/>
+
+                        <live:LiveLabel Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,5" Content="{lange:TranslateExtension Hedef İş Yeri Kodu}"/>
+                        <live:LiveTextEdit Grid.Row="6" Grid.Column="1" Margin="5,5,0,0" HorizontalAlignment="Left" Width="400" Text="{sye:SBinding Path=Parameters.TargetWorkplaceCode}"/>
+
+                        <live:LiveLabel Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,5" Content="{lange:TranslateExtension Muhasebe Hesap Kodları}"/>
+                        <live:LiveTextEdit Grid.Row="7" Grid.Column="1" Margin="5,5,0,0" HorizontalAlignment="Left" Width="400" Text="{sye:SBinding Path=Parameters.GLAccountCodes}"/>
+
+                        <live:LiveButton Grid.Row="8" Grid.Column="1" 
+                                        HorizontalAlignment="Left" 
+                                        Margin="5,15,0,0" 
+                                        Width="300" 
+                                        Height="30"
+                                        Content="{lange:TranslateExtension Parametreleri Hedef Veritabanına Kopyala}"
+                                        Command="{sye:SBinding Path=CmdList[CopyParametersToTargetDatabaseCommand]}"/>
                     </Grid>
                 </live:LiveTabItem>
             </live:LiveTabControl>
